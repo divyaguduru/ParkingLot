@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import main.org.parkingsystem.enums.State;
 import main.org.parkingsystem.model.impl.Car;
 import main.org.parkingsystem.model.impl.Slot;
-import main.org.parkingsystem.model.impl.State;
 
 public class ParkingLotManager {
    
@@ -18,13 +18,14 @@ public class ParkingLotManager {
 	Slot slot;
 	List slots=new ArrayList(600);
 	Map<Integer,Car> parkedcars=new HashMap<Integer,Car>();
-	public void initializeParkingLot(int totalslots){
-		
-		int i;
-		for(i=0;i<totalslots;i++){
+	public int initializeParkingLot(int totalslots){
+		if (slots.size()==0){
+        for(int i=1;i<=totalslots;i++){
 			slots.add( new Slot(i));
 		}
-		
+        return slots.size();
+		}
+		return totalslots;
 	}
 	
 	public Slot parkCar(String vehicleNumber,String color){
@@ -45,6 +46,7 @@ public class ParkingLotManager {
             emptySlot = slotIterator.next();
             if (emptySlot.getStatus()==State.UNPARKED) {
                 isSlotFound = true;
+                break;
             }
         }
         return emptySlot;
@@ -55,20 +57,25 @@ public class ParkingLotManager {
 		parkedcars.put(currentSlot.getSlotNumber(),car);
 	}
 	
-	public void unPark(int unparkSlot) {
+	public boolean unPark(int unparkSlot) {
 		 Iterator<Slot> slotIterator = slots.iterator();
 	     Slot currentUnparkSlot = null;
 	     	while (slotIterator.hasNext()) {
 	        	currentUnparkSlot = slotIterator.next();
-	            if (currentUnparkSlot.getSlotNumber()==unparkSlot) {
+	            if (currentUnparkSlot.getSlotNumber()==unparkSlot && currentUnparkSlot.getStatus()==State.PARKED) {
 	                currentUnparkSlot.unPark();
+	                parkedcars.remove(unparkSlot);
+	                return true;
+	            }
+	            else if(currentUnparkSlot.getSlotNumber()==unparkSlot && currentUnparkSlot.getStatus()==State.UNPARKED){
+	            	return false;
 	            }
 	        }
-		parkedcars.remove(unparkSlot);
+	     	
+			return false;
     }
 
 	public Map<Integer, Car> getStatus() {
-		// TODO Auto-generated method stub
 		return parkedcars;
 	}
 }

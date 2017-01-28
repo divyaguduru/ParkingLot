@@ -13,7 +13,7 @@ public class SlotNumberWithRegistrationNumberFilter {
 	Map<Integer,Car> currentParkingLotStatus=new HashMap<Integer,Car>();
 	List<Integer> slotsNoList=new ArrayList<Integer>();
 	
-	public List<Integer> applyCriteria(String input) {
+	public void applyCriteria(String input) {
 		// TODO Auto-generated method stub
 		char[] inputToCharArray=input.toCharArray();
 		String regno=String.valueOf(inputToCharArray[1]);
@@ -21,10 +21,10 @@ public class SlotNumberWithRegistrationNumberFilter {
 		for (Integer carslotno : currentParkingLotStatus.keySet()) {
 			Car car=currentParkingLotStatus.get(carslotno);
 		    if(car.getCarno().equals(regno)){
-		    	slotsNoList.add(carslotno);
+		    	System.out.print(carslotno+",");
 		    }
 		}
-		return slotsNoList;
+		System.out.println("");
 	}
 
 }

@@ -10,16 +10,17 @@ import main.org.parkingsystem.model.impl.Slot;
 import main.org.parkingsystem.model.impl.Ticket;
 
 public class TicketManager {
-    ArrayList nexus=new ArrayList();
+	
 	public void printTicket(Slot slot,String vehicleNumber, String color){
 		try{
-			File file = new File("C:\\ticket.txt"); 
+			String ticketNumber=Integer.toString(slot.getSlotNumber()).concat(vehicleNumber);
+			String path="C://ParkingLot/"+ticketNumber+".txt";
+			File file = new File(path); 
 		    PrintWriter writer = new PrintWriter(file);
 		    writer.println("Slot no:"+ slot);
 		    writer.println("Car no:"+ vehicleNumber);
 		    writer.println("Car color:"+ color);
 		    writer.close();
-		    nexus.add(new Ticket(1));
 		    
 		} catch (IOException e) {
 		}

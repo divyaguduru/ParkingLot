@@ -1,5 +1,7 @@
 package main.org.parkingsystem.model.impl;
 
+import main.org.parkingsystem.enums.State;
+
 public class Slot {
 
 private State status;    

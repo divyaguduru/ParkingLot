@@ -56,7 +56,7 @@ public class FileProcessor {
 	    		parkinglotstate.applyCriteria(commandInput);
 	    	}	
 	    	else if(commandInput.contains("registration_numbers_for_cars_with_colour")){
-	    		List aa=regNoWithColor.applyCriteria(commandInput);
+	    		regNoWithColor.applyCriteria(commandInput);
 	    	}
 	    	else if(commandInput.contains("slot_numbers_for_cars_with_colour")){
 	    		slotsNumbersWithColor.applyCriteria(commandInput);
